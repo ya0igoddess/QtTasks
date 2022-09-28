@@ -4,6 +4,31 @@ import QtQuick.Window 2.15
 Window {
     width: 640
     height: 480
-    visible: true
-    title: qsTr("Hello World")
+
+    Rectangle {
+        id: redSquare
+        width: 200
+        height: 200
+        color: "red"
+    }
+    Rectangle {
+        id: greenSquare
+        width: 200
+        height: 200
+        color: "green"
+        anchors {
+            left: redSquare.right
+            top: redSquare.verticalCenter
+        }
+    }
+    Rectangle{
+        id: blueSquare
+        width: 200
+        height: 200
+        color: "blue"
+        anchors {
+            left: greenSquare.horizontalCenter
+            bottom: greenSquare.verticalCenter
+        }
+    }
 }
