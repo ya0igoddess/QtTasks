@@ -30,5 +30,11 @@ Window {
             left: greenSquare.horizontalCenter
             bottom: greenSquare.verticalCenter
         }
+        Text {
+            id: blueSquareText
+            color: "white"
+            text: qsTr("Квадрат")
+            anchors.centerIn: blueSquare
+        }
     }
 }
