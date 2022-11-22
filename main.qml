@@ -7,7 +7,7 @@ Window {
     height: 480
     visible: true
     title: qsTr("Hello World")
-   StackView {
+   Column { anchors.fill: parent
     ListView {
             id: task1_LV
             height: parent.height/2
@@ -40,10 +40,34 @@ Window {
             id: task2Label
             height: 20
         }
-        Label { text: 'Login' ; height: 30}
+        Label { text: 'e-mail' ; height: 30}
         TextField { id: loginField }
         Label {text:'Password'}
         TextField { id: passField }
+        function request() {
+            var xhr= new XMLHttpRequest();
+            //xhr.responseType = 'json';
+            var url = `https://reqres.in/api/register`;
+
+            xhr.onreadystatechange = function() {
+               if (xhr.readyState === XMLHttpRequest.DONE) {
+                    print(xhr.responseText);
+                    var json = JSON.parse(xhr.responseText.toString());
+                    if (xhr.status === 200) {
+                        task2Label.text = `token: ${json.token}`
+                    } else {
+                        task2Label.text = `error: ${json.error}`
+                    }
+                }
+            }
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-Type','application/json');
+            xhr.send(JSON.stringify({email: loginField.text, password: passField.text}));
+        }
+        Button {
+            text: 'Enter'
+            onClicked: parent.request()
+        }
     }
 
 
